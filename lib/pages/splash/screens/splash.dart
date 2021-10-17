@@ -1,3 +1,4 @@
+import 'package:ehviewer/generated/l10n.dart';
 import 'package:ehviewer/pages/splash/controller/splash_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,20 +16,15 @@ class SplashScreen extends GetView<SplashController> {
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Icon(
+          children: <Widget>[
+            const Icon(
               LineIcons.cat,
-              // FontAwesomeIcons.heading,
               size: 150.0,
               color: Colors.grey,
             ),
-            // Text(
-            //   L10n.of(context).welcome_text,
-            //   style: const TextStyle(color: Colors.grey),
-            // ),
             Text(
-              "EHViewer",
-              style: TextStyle(color: Colors.grey),
+              L10n.of(context).app_title,
+              style: const TextStyle(color: Colors.grey),
             )
           ],
         ),
