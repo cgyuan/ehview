@@ -11,6 +11,6 @@ class AppPages {
         page: () => const SplashScreen(),
         binding: SplashBinding(),
         transition: Transition.fadeIn),
-    GetPage(name: EHRoutes.home, page: () => HomeScreen())
+    GetPage(name: EHRoutes.home, page: () => const HomeScreen())
   ];
 }

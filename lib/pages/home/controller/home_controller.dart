@@ -1,5 +1,6 @@
 import 'package:ehviewer/config/route/app_routes.dart';
 import 'package:ehviewer/generated/l10n.dart';
+import 'package:ehviewer/pages/home/pagers/gallery/gallery_list_pager.dart';
 import 'package:ehviewer/utils/toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,7 +16,7 @@ class TabPages {
   Map<String, Widget> get tabViews => <String, Widget>{
         EHRoutes.popular: CupertinoPageScaffold(child: Container()),
         EHRoutes.watched: CupertinoPageScaffold(child: Container()),
-        EHRoutes.gallery: CupertinoPageScaffold(child: Container()),
+        EHRoutes.gallery: const GalleryListPager(),
         EHRoutes.favorite: CupertinoPageScaffold(child: Container()),
         EHRoutes.toplist: CupertinoPageScaffold(child: Container()),
         EHRoutes.history: CupertinoPageScaffold(child: Container()),
