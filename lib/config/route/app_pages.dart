@@ -1,6 +1,6 @@
 import 'package:ehviewer/config/route/app_routes.dart';
 import 'package:ehviewer/pages/home/screens/home.dart';
-import 'package:ehviewer/pages/splash/binding/SplashBinding.dart';
+import 'package:ehviewer/pages/splash/binding/splash_binding.dart';
 import 'package:ehviewer/pages/splash/screens/splash.dart';
 import 'package:get/route_manager.dart';
 
