@@ -1,4 +1,4 @@
-import 'package:ehviewer/enums/enum.dart';
+import 'package:ehviewer/core/enums/page_state.dart';
 import 'package:ehviewer/model/gallery_item.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/state_manager.dart';

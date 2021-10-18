@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:device_preview/device_preview.dart';
 import 'package:ehviewer/config/route/app_pages.dart';
 import 'package:ehviewer/config/route/app_routes.dart';
+import 'package:ehviewer/core/global.dart';
 import 'package:ehviewer/generated/l10n.dart';
 import 'package:ehviewer/utils/get_init.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,6 +14,7 @@ import 'package:oktoast/oktoast.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runZonedGuarded<Future<void>>(() async {
+    await Global.init();
     getInit();
     runApp(DevicePreview(
       enabled: false,

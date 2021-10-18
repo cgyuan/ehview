@@ -45,6 +45,10 @@ dependencies:
   # 国际化
   flutter_localizations:
     sdk: flutter
+  dio: ^4.0.0
+  dio_http_cache: ^0.3.0
+  path_provider: ^2.0.5
+  pretty_dio_logger: ^1.2.0-beta-1
 
 dev_dependencies:
   flutter_test:
