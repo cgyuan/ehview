@@ -1,7 +1,11 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:ehviewer/constants/const.dart';
+import 'package:ehviewer/core/parser/gallery_list_parser.dart';
+import 'package:ehviewer/model/gallery_list.dart';
 
+import 'exception.dart';
 import 'http_response.dart';
 
 /// Response 解析
@@ -37,4 +41,50 @@ class DefaultHttpTransformer extends HttpTransformer {
 
   /// 工厂构造方法，这里使用命名构造函数方式进行声明
   factory DefaultHttpTransformer.getInstance() => _instance;
+}
+
+/// 画廊列表解析 - 收藏夹页
+class FavoriteListHttpTransformer extends HttpTransformer {
+  @override
+  FutureOr<DioHttpResponse<GalleryList>> parse(
+      Response<dynamic> response) async {
+    final html = response.data as String;
+
+    // 排序方式检查
+    const FavoriteOrder order = FavoriteOrder.fav;
+    // 排序参数
+    final String _order = EHConst.favoriteOrder[order] ?? EHConst.FAV_ORDER_FAV;
+    final bool isOrderFav = isFavoriteOrder(html);
+    final bool needReOrder = isOrderFav ^ (order == FavoriteOrder.fav);
+
+    // 列表样式检查 不符合则设置参数重新请求
+    final bool isDml = isGalleryListDmL(html);
+
+    if (!isDml) {
+      return DioHttpResponse<GalleryList>.failureFromError(
+          ListDisplayModeException());
+    } else if (needReOrder) {
+      return DioHttpResponse<GalleryList>.failureFromError(
+          FavOrderException(order: _order));
+    } else {
+      final GalleryList gam = await parseGalleryList(html, isFavorite: true);
+      return DioHttpResponse<GalleryList>.success(gam);
+    }
+  }
+}
+
+class GalleryListHttpTransformer extends HttpTransformer {
+  @override
+  FutureOr<DioHttpResponse<GalleryList>> parse(Response response) async {
+    final html = response.data as String;
+    // 列表样式检查 不符合则设置参数重新请求
+    final bool isDml = isGalleryListDmL(html);
+    if (isDml) {
+      final GalleryList gam = await parseGalleryList(html);
+      return DioHttpResponse<GalleryList>.success(gam);
+    } else {
+      return DioHttpResponse<GalleryList>.failureFromError(
+          ListDisplayModeException());
+    }
+  }
 }

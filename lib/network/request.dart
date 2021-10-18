@@ -8,6 +8,9 @@ import 'package:ehviewer/repository/fetch_list.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'app_dio/dio_http_cli.dart';
+import 'app_dio/exception.dart';
+import 'app_dio/http_response.dart';
+import 'app_dio/http_transformer.dart';
 
 Options getCacheOptions({bool forceRefresh = false, Options? options}) {
   return buildCacheOptions(
@@ -67,4 +70,42 @@ Future<GalleryList?> getGallery({
     if (isFav && favcat != null && favcat != 'a' && favcat.isNotEmpty)
       'favcat': favcat,
   };
+
+  DioHttpResponse httpResponse = await dioHttpClient.get(
+    _url,
+    queryParameters: _params,
+    httpTransformer:
+        isFav ? FavoriteListHttpTransformer() : GalleryListHttpTransformer(),
+    options: getCacheOptions(forceRefresh: refresh),
+  );
+
+  if (httpResponse.error is ListDisplayModeException) {
+    // logger.d(' inline_set dml');
+    _params['inline_set'] = 'dm_l';
+
+    httpResponse = await dioHttpClient.get(
+      _url,
+      queryParameters: _params,
+      httpTransformer:
+          isFav ? FavoriteListHttpTransformer() : GalleryListHttpTransformer(),
+      options: getCacheOptions(forceRefresh: true),
+    );
+  }
+
+  if (httpResponse.error is FavOrderException) {
+    final _order = (httpResponse.error as FavOrderException).order;
+    _params['inline_set'] = _order;
+    _params.removeWhere((key, value) => key == 'page');
+    httpResponse = await dioHttpClient.get(
+      _url,
+      queryParameters: _params,
+      httpTransformer:
+          isFav ? FavoriteListHttpTransformer() : GalleryListHttpTransformer(),
+      options: getCacheOptions(forceRefresh: true),
+    );
+  }
+
+  if (httpResponse.ok && httpResponse.data is GalleryList) {
+    return httpResponse.data as GalleryList;
+  }
 }

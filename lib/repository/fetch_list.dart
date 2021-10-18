@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:ehviewer/model/gallery_list.dart';
+import 'package:ehviewer/network/request.dart';
 
 enum GalleryListType {
   gallery,
@@ -51,5 +52,14 @@ class DefaultFetchListClient extends FetchListClient {
       : super(fetchParams: fetchParams);
 
   @override
-  Future<GalleryList?> fetch() async {}
+  Future<GalleryList?> fetch() async {
+    return await getGallery(
+      page: fetchParams.page,
+      fromGid: fetchParams.fromGid,
+      serach: fetchParams.serach,
+      cats: fetchParams.cats,
+      cancelToken: fetchParams.cancelToken,
+      refresh: fetchParams.refresh,
+    );
+  }
 }
