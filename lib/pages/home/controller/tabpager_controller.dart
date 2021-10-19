@@ -106,6 +106,15 @@ class TabPagerController extends GetxController
     }
   }
 
+  Future<void> reLoadDataFirst() async {
+    isBackgroundRefresh = false;
+    if (!cancelToken.isCancelled) {
+      cancelToken.cancel();
+    }
+    change(null, status: RxStatus.loading());
+    onInit();
+  }
+
   Future<void> reloadData() async {
     curPage.value = 0;
     final GalleryList? rult = await fetchData(

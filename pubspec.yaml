@@ -52,6 +52,8 @@ dependencies:
   html: ^0.15.0
   collection: ^1.15.0
   enum_to_string: ^2.0.1
+  cached_network_image: ^3.1.0
+  blur: ^3.0.0
 
 dev_dependencies:
   flutter_test:
