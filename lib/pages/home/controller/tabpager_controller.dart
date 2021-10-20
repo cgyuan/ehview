@@ -5,6 +5,7 @@ import 'package:ehviewer/model/gallery_item.dart';
 import 'package:ehviewer/model/gallery_list.dart';
 import 'package:ehviewer/repository/fetch_list.dart';
 import 'package:ehviewer/utils/toast.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/state_manager.dart';
 
@@ -35,6 +36,11 @@ class TabPagerController extends GetxController
   final CancelToken cancelToken = CancelToken();
 
   String get currToplist => '15';
+
+  final GlobalKey<SliverAnimatedListState> sliverAnimatedListKey =
+      GlobalKey<SliverAnimatedListState>();
+
+  int lastTopitemIndex = 0;
 
   @override
   void onReady() {

@@ -1,5 +1,6 @@
 import 'package:ehviewer/components/refresh.dart';
 import 'package:ehviewer/constants/constants.dart';
+import 'package:ehviewer/pages/home/components/gallery_list_ext.dart';
 import 'package:ehviewer/pages/home/pagers/gallery/components/gallery_error_page.dart';
 import 'package:ehviewer/pages/home/pagers/gallery/controller/gallery_controller.dart';
 import 'package:ehviewer/utils/cust_lib/persistent_header_builder.dart';
@@ -44,10 +45,7 @@ class _GalleryListPagerState extends State<GalleryListPager> {
           // key: centerKey,
           top: false,
           bottom: false,
-          sliver: SliverAnimatedList(itemBuilder:
-              (BuildContext context, int index, Animation<double> animation) {
-            return const SizedBox.shrink();
-          }),
+          sliver: _getGalleryList(),
         ),
       ],
     );
@@ -62,7 +60,14 @@ class _GalleryListPagerState extends State<GalleryListPager> {
   Widget _getGalleryList() {
     return controller.obx(
         (state) {
-          return Container();
+          if (state == null) {
+            return SizedBox.shrink();
+          }
+          return getGalleryList(state, controller.tabTag,
+              maxPage: controller.maxPage,
+              curPage: controller.curPage.value,
+              key: controller.sliverAnimatedListKey,
+              lastTopItemIndex: controller.lastTopitemIndex);
         },
         onLoading: SliverFillRemaining(
           child: Container(
