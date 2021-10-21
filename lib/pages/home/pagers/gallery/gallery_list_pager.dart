@@ -22,6 +22,27 @@ class _GalleryListPagerState extends State<GalleryListPager> {
   final controller = Get.find<GalleryViewController>();
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      final _scrollController = PrimaryScrollController.of(context);
+      _scrollController?.addListener(() async {
+        if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent) {
+          if (controller.curPage < controller.maxPage - 1) {
+            // 加载更多
+            // await controller.loadDataMore();
+          } else {
+            // 没有更多了
+            // showToast('No More');
+          }
+        }
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final Widget navigationBar = HeaderBar(controller: controller);
     final Widget customScrollView = CustomScrollView(

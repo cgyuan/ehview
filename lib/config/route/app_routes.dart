@@ -10,4 +10,12 @@ class EHRoutes {
   static const String history = '/history';
   static const String download = '/download';
   static const String setting = '/setting';
+
+  static const String ehSetting = '/setting/ehSetting';
+  static const String downloadSetting = '/setting/downloadSetting';
+  static const String searchSetting = '/setting/searchSetting';
+  static const String advancedSetting = '/setting/advancedSetting';
+  static const String securitySetting = '/setting/securitySetting';
+  static const String viewSeting = '/setting/viewSetting';
+  static const String about = '/setting/about';
 }
