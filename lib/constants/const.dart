@@ -1,3 +1,12 @@
+import 'package:ehviewer/model/advance_search.dart';
+import 'package:ehviewer/model/auto_lock.dart';
+import 'package:ehviewer/model/dns_config.dart';
+import 'package:ehviewer/model/download_config.dart';
+import 'package:ehviewer/model/eh_config.dart';
+import 'package:ehviewer/model/gallery_image.dart';
+import 'package:ehviewer/model/local_fav.dart';
+import 'package:ehviewer/model/profile.dart';
+import 'package:ehviewer/model/user.dart';
 import 'package:flutter/services.dart';
 
 enum ListModeEnum {
@@ -59,6 +68,107 @@ class GetIds {
   static const String PAGE_VIEW_BODY = 'body';
   static const String TAG_ADD_CLEAR_BTN = 'TAG_ADD_CLEAR_BTN';
 }
+
+// Profile
+const AdvanceSearch kDefAdvanceSearch = AdvanceSearch(
+  searchGalleryName: true,
+  searchGalleryTags: true,
+  searchGalleryDesc: false,
+  searchToreenFilenames: false,
+  onlyShowWhithTorrents: false,
+  searchLowPowerTags: false,
+  searchDownvotedTags: false,
+  searchExpunged: false,
+  searchWithminRating: false,
+  minRating: 2,
+  searchBetweenpage: false,
+  startPage: '',
+  endPage: '',
+  disableDFLanguage: false,
+  disableDFUploader: false,
+  disableDFTags: false,
+  favSearchName: true,
+  favSearchTags: true,
+  favSearchNote: true,
+);
+
+const User kDefUser = User(
+  username: '',
+  cookie: '',
+  avatarUrl: '',
+  favcat: [],
+);
+
+const GalleryImage kDefGalleryImage = GalleryImage(
+  isLarge: false,
+  isCache: false,
+  startPrecache: false,
+  ser: -1,
+  href: '',
+  imageUrl: '',
+  thumbUrl: '',
+  thumbHeight: -1,
+  thumbWidth: -1,
+  imageHeight: -1,
+  imageWidth: -1,
+  offSet: -1,
+  sourceId: '',
+);
+
+const EhConfig kDefEhConfig = EhConfig(
+  jpnTitle: false,
+  tagTranslat: false,
+  tagTranslatVer: '',
+  favoritesOrder: '',
+  siteEx: false,
+  galleryImgBlur: false,
+  favPicker: false,
+  favLongTap: false,
+  lastFavcat: '0',
+  lastShowFavcat: 'a',
+  lastShowFavTitle: '',
+  listMode: '',
+  safeMode: false,
+  catFilter: 0,
+  maxHistory: 100,
+  searchBarComp: true,
+  pureDarkTheme: false,
+  viewModel: '',
+  clipboardLink: false,
+  commentTrans: false,
+  autoLockTimeOut: -1,
+  showPageInterval: true,
+  orientation: '',
+  vibrate: true,
+  tagIntroImgLv: '',
+  toplist: '15',
+);
+
+const Profile kDefProfile = Profile(
+  user: kDefUser,
+  locale: '',
+  lastLogin: '',
+  theme: '',
+  searchText: [],
+  localFav: LocalFav(gallerys: []),
+  enableAdvanceSearch: false,
+  autoLock: AutoLock(lastLeaveTime: -1, isLocking: false),
+  dnsConfig: DnsConfig(
+    enableDoH: false,
+    enableCustomHosts: false,
+    enableDomainFronting: false,
+    hosts: [],
+    dohCache: [],
+  ),
+  downloadConfig: DownloadConfig(
+    preloadImage: 5,
+    multiDownload: -1,
+    downloadLocation: '',
+    downloadOrigImage: false,
+  ),
+  ehConfig: kDefEhConfig,
+  advanceSearch: kDefAdvanceSearch,
+);
 
 // ignore: avoid_classes_with_only_static_members
 class EHConst {
