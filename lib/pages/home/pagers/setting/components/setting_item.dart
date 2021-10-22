@@ -1,6 +1,7 @@
 import 'package:ehviewer/config/theme/theme_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SettingItems extends StatefulWidget {
   const SettingItems({
@@ -41,6 +42,9 @@ class _SettingItemState extends State<SettingItems> {
       onTapUp: (_) {
         Future.delayed(
             const Duration(milliseconds: 100), () => _updateNormalColor());
+      },
+      onTap: () {
+        Get.toNamed(widget.route);
       },
       onTapCancel: () => _updateNormalColor(),
       child: Container(
